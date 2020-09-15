@@ -10,6 +10,7 @@ using std::endl;
 const double goal_x = 20.0;
 const double goal_y = 0.0;
 bool done = false;
+double phi = 0;
 
 void
 callback(Robot* robot)
@@ -43,11 +44,40 @@ callback(Robot* robot)
         robot->set_vel(3.0);
         robot->set_turn(0.5);
     }
+    /**
+     * Solution for HW01:
+     * If the robot is not in range of an obstacle, the arctan between
+     * dx and dy will be calculated and subtracted from 90 degrees (radians).
+     * This angle is defined as the phi angle.
+     * This will then be used in logic to determine if the robot must turn.
+     * It will only turn if it is not within a certain range of the phi angle.
+     */
     else {
-        robot->set_vel(5.0);
-        robot->set_turn(-0.02);
+	phi = (3.14159/2) - atan2(dx, dy);	// phi angle calculation
+
+	// logic used to determine if the robot is on the right track within a
+	// certain range of precision
+	if ((phi - robot->pos_t) >= 0.1 || (phi - robot->pos_t) < -0.1) {
+            robot->set_vel(5.0);
+	    // if the target is to the left of the robot's heading, turn left
+	    if (phi > robot->pos_t) {
+                robot->set_turn(-0.15);
+	    }
+	    // if the target is to the right of the robot's heading, turn right
+	    else {
+                robot->set_turn(0.15);
+	    }
+	}
+	// if the robot is within the range needed to get to the target,
+	// continue at full speed
+	else {
+            robot->set_vel(10.0);
+	    robot->set_turn(0.0);
+	}
     }
 }
+
+// end of solution for HW01
 
 int
 main(int argc, char* argv[])
