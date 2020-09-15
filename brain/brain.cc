@@ -33,8 +33,8 @@ callback(Robot* robot)
     bool turn = false;
 
     for (LaserHit hit : robot->hits) {
-        if (hit.range < 1.5) {
-            if (hit.angle < 0.5 || hit.angle > (6.2 - 0.5)) {
+        if (hit.range < 1.55) {
+            if (hit.angle < 0.55 || hit.angle > (6.2 - 0.5)) {
                 turn = true;
             }
         }
@@ -58,14 +58,15 @@ callback(Robot* robot)
 	// logic used to determine if the robot is on the right track within a
 	// certain range of precision
 	if ((phi - robot->pos_t) >= 0.1 || (phi - robot->pos_t) < -0.1) {
-            robot->set_vel(5.0);
 	    // if the target is to the left of the robot's heading, turn left
 	    if (phi > robot->pos_t) {
                 robot->set_turn(-0.15);
+                robot->set_vel(3.0);
 	    }
 	    // if the target is to the right of the robot's heading, turn right
 	    else {
                 robot->set_turn(0.15);
+                robot->set_vel(3.0);
 	    }
 	}
 	// if the robot is within the range needed to get to the target,

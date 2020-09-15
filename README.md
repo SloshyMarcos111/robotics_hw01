@@ -1,8 +1,7 @@
 
 # Gazebo Simulation HW
 
-This contains a simulation setup and sample control program for assignments in a
-university robotics course.
+Marcos Rodriguez
+git repo: https://github.com/SloshyMarcos111/robotics_hw01.git
+video url: https://youtu.be/aA2yl2zKJeI
 
-This requires [Gazebo](http://gazebosim.org/) and is intended to work on a
-(non-virtualized) Ubuntu 20.04 or Debian 10 system.
